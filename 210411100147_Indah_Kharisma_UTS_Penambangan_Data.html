@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Import Library yang diperlukan &#8212; My sample book</title>
+    <title>UTS PENDATA &#8212; My sample book</title>
   
   
   
@@ -339,7 +339,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Import Library yang diperlukan</h1>
+    <h1>UTS PENDATA</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -349,11 +349,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Import Library yang diperlukan</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">Load dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#definisikan-kolom-numerical">Definisikan kolom numerical</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-yang-diperlukan">Import Library yang diperlukan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">Load dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisikan-kolom-numerical">Definisikan kolom numerical</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -364,10 +363,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p>Nama : Indah Kharisma
+  <div class="tex2jax_ignore mathjax_ignore section" id="uts-pendata">
+<h1>UTS PENDATA<a class="headerlink" href="#uts-pendata" title="Permalink to this heading">#</a></h1>
+<p>Nama : Indah Kharisma
 NIM : 210411100147</p>
 <div class="section" id="import-library-yang-diperlukan">
-<h1>Import Library yang diperlukan<a class="headerlink" href="#import-library-yang-diperlukan" title="Permalink to this heading">#</a></h1>
+<h2>Import Library yang diperlukan<a class="headerlink" href="#import-library-yang-diperlukan" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -379,7 +380,7 @@ NIM : 210411100147</p>
 </div>
 </div>
 <div class="section" id="load-dataset">
-<h1>Load dataset<a class="headerlink" href="#load-dataset" title="Permalink to this heading">#</a></h1>
+<h2>Load dataset<a class="headerlink" href="#load-dataset" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/datasets/breast-cancer/master/data/breast-cancer.csv&#39;</span><span class="p">)</span>
@@ -389,7 +390,7 @@ NIM : 210411100147</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-26586631-7eef-4673-bb42-a0e0adc99593">
+  <div id="df-4c9fb3fc-d14a-468b-843f-4a84363b62df">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -490,7 +491,7 @@ NIM : 210411100147</p>
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-26586631-7eef-4673-bb42-a0e0adc99593')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-4c9fb3fc-d14a-468b-843f-4a84363b62df')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -541,12 +542,12 @@ NIM : 210411100147</p>
 
       <script>
         const buttonEl =
-          document.querySelector('#df-26586631-7eef-4673-bb42-a0e0adc99593 button.colab-df-convert');
+          document.querySelector('#df-4c9fb3fc-d14a-468b-843f-4a84363b62df button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-26586631-7eef-4673-bb42-a0e0adc99593');
+          const element = document.querySelector('#df-4c9fb3fc-d14a-468b-843f-4a84363b62df');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -569,7 +570,7 @@ NIM : 210411100147</p>
 </div>
 </div>
 <div class="section" id="definisikan-kolom-numerical">
-<h1>Definisikan kolom numerical<a class="headerlink" href="#definisikan-kolom-numerical" title="Permalink to this heading">#</a></h1>
+<h2>Definisikan kolom numerical<a class="headerlink" href="#definisikan-kolom-numerical" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;mefalsepause&#39;</span><span class="p">,</span> <span class="s1">&#39;tumor-size&#39;</span><span class="p">,</span> <span class="s1">&#39;inv-falsedes&#39;</span><span class="p">,</span> <span class="s1">&#39;falsede-caps&#39;</span><span class="p">,</span> <span class="s1">&#39;deg-malig&#39;</span><span class="p">,</span> <span class="s1">&#39;breast&#39;</span><span class="p">,</span> <span class="s1">&#39;breast-quad&#39;</span><span class="p">,</span> <span class="s1">&#39;irradiat&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">]</span>
@@ -644,7 +645,7 @@ The categorical variables are :
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-525a52f1-a764-4ad0-9348-f60b8dd77bdf">
+  <div id="df-7b1a7bc6-b967-4063-9d69-80cf75b4b27a">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -733,7 +734,7 @@ The categorical variables are :
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-525a52f1-a764-4ad0-9348-f60b8dd77bdf')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-7b1a7bc6-b967-4063-9d69-80cf75b4b27a')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -784,12 +785,12 @@ The categorical variables are :
 
       <script>
         const buttonEl =
-          document.querySelector('#df-525a52f1-a764-4ad0-9348-f60b8dd77bdf button.colab-df-convert');
+          document.querySelector('#df-7b1a7bc6-b967-4063-9d69-80cf75b4b27a button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-525a52f1-a764-4ad0-9348-f60b8dd77bdf');
+          const element = document.querySelector('#df-7b1a7bc6-b967-4063-9d69-80cf75b4b27a');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -936,7 +937,7 @@ The numerical variables are : [&#39;deg-malig&#39;, &#39;irradiat&#39;]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-f7e07e09-3047-471b-8e33-cddc178a0bae">
+  <div id="df-37cb8803-3bef-402c-97c1-6ea43748fd92">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -989,7 +990,7 @@ The numerical variables are : [&#39;deg-malig&#39;, &#39;irradiat&#39;]
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-f7e07e09-3047-471b-8e33-cddc178a0bae')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-37cb8803-3bef-402c-97c1-6ea43748fd92')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1040,12 +1041,12 @@ The numerical variables are : [&#39;deg-malig&#39;, &#39;irradiat&#39;]
 
       <script>
         const buttonEl =
-          document.querySelector('#df-f7e07e09-3047-471b-8e33-cddc178a0bae button.colab-df-convert');
+          document.querySelector('#df-37cb8803-3bef-402c-97c1-6ea43748fd92 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-f7e07e09-3047-471b-8e33-cddc178a0bae');
+          const element = document.querySelector('#df-37cb8803-3bef-402c-97c1-6ea43748fd92');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -2194,6 +2195,7 @@ The numerical variables are : [&#39;deg-malig&#39;, &#39;irradiat&#39;]
   </div></div>
 </div>
 </div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -2244,11 +2246,10 @@ The numerical variables are : [&#39;deg-malig&#39;, &#39;irradiat&#39;]
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Import Library yang diperlukan</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">Load dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#definisikan-kolom-numerical">Definisikan kolom numerical</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-yang-diperlukan">Import Library yang diperlukan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">Load dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisikan-kolom-numerical">Definisikan kolom numerical</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
