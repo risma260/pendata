@@ -1,0 +1,1505 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Principal Component Analysis &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PCA_Iris';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="UTS PENDATA" href="Indah_Kharisma_UTS_Penambangan_Data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  <a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/mining.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/mining.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Profil
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Load_Data_ke_Power_BI.html">Load Data ke Power BI</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="Naive_Bayes.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Indah_Kharisma_UTS_Penambangan_Data.html">UTS PENDATA</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="PCA_Iris.html">PCA Iris</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+ 
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPCA_Iris.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/PCA_Iris.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Principal Component Analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengembalikan-daftar-kolom-yang-ada-dalam-dataframe">Mengembalikan daftar kolom yang ada dalam DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-gambar-histogram-dari-empat-fitur-dalam-dataframe-x">Membuat gambar histogram dari empat fitur dalam DataFrame ‘X’</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-penskalaan-standar-pada-data-menggunakan-library-scikit-learn">Melakukan penskalaan standar pada data menggunakan library scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-dan-mencetak-matriks-kovarian-dari-data-yang-telah-distandardisasi">Menghitung dan mencetak matriks kovarian dari data yang telah distandardisasi.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mencetak-matriks-kovarian-menggunakan-np-cov-pada-data-yang-telah-distandardisasi">Mencetak matriks kovarian menggunakan np.cov pada data yang telah distandardisasi.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-eigenvector-dan-eigenvalue-dari-matriks-kovarian-dan-mencetak-hasilnya">Menghitung eigenvector dan eigenvalue dari matriks kovarian, dan mencetak hasilnya.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi">Matriks Korelasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-matriks-korelasi-eigenvector-dan-eigenvalue-kemudian-mencetak-hasilnya">Menghitung matriks korelasi, eigenvector, dan eigenvalue, kemudian mencetak hasilnya.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggunakan-singular-value-decomposition-svd-pada-transpose-matriks-x-std-dan-hasilnya-disimpan-dalam-variabel-u">Menggunakan Singular Value Decomposition (SVD) pada transpose matriks X_std dan hasilnya disimpan dalam variabel u.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memverifikasi-norma-eigenvector-dan-mencetak-pesan-jika-valid">Memverifikasi norma eigenvector dan mencetak pesan jika valid.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-daftar-pasangan-nilai-eigen-vektor-eigen">Membuat daftar pasangan (nilai eigen, vektor eigen)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-persentase-variasi-dan-kumulatif-menggunakan-eigenvalues-terurut">Menghitung persentase variasi dan kumulatif menggunakan eigenvalues terurut.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-gambar-persentase-variasi-dan-variasi-kumulatif-yang-dijelaskan">Membuat gambar persentase variasi dan variasi kumulatif yang dijelaskan.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-dua-vektor-eigen-terpilih-menjadi-sebuah-matriks">Menggabungkan dua vektor eigen terpilih menjadi sebuah matriks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengalikan-matriks-x-std-dengan-matriks-w-dan-menyimpan-hasilnya-dalam-matriks-y">Mengalikan matriks X_std dengan matriks W dan menyimpan hasilnya dalam matriks Y.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-scatter-plot-dua-dimensi-dengan-warna-berbeda-untuk-setiap-label">Membuat scatter plot dua dimensi dengan warna berbeda untuk setiap label.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengubah-data-x-std-menjadi-matriks-y-sklearn-berdimensi-dua">Mengubah data ‘X_std’ menjadi matriks ‘Y_sklearn’ berdimensi dua.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Membuat scatter plot dua dimensi dengan warna berbeda untuk setiap label</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-data-yang-berisi-kolom-x-dan-y-yang-berisi-nilai-dari-matriks-y-sklearn">DataFrame ‘data’ yang berisi kolom ‘X’ dan ‘Y’ yang berisi nilai dari matriks Y_sklearn.</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="principal-component-analysis">
+<h1>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">#</a></h1>
+<div class="section" id="import-library">
+<h2>Import Library<a class="headerlink" href="#import-library" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Principal component analysis (PCA) adalah teknik yang digunakan untuk menyederhanakan suatu data, dengan cara mentransformasi data secara linier sehingga terbentuk sistem koordinat baru dengan varians maksimum. PCA dapat digunakan untuk mereduksi dimensi suatu data tanpa mengurangi karakteristik data tersebut secara signifikan.</p>
+</div>
+<div class="section" id="import-data">
+<h2>Import Data<a class="headerlink" href="#import-data" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/risma260/IrisDataset/main/IrisDataset.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-4280803d-b4ef-4ebe-80d7-f737c85f4310">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-4280803d-b4ef-4ebe-80d7-f737c85f4310')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-4280803d-b4ef-4ebe-80d7-f737c85f4310 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-4280803d-b4ef-4ebe-80d7-f737c85f4310');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<ol class="arabic simple">
+<li><p>df=pd.read_csv(‘<a class="reference external" href="https://raw.githubusercontent.com/risma260/IrisDataset/main/IrisDataset.csv">https://raw.githubusercontent.com/risma260/IrisDataset/main/IrisDataset.csv</a>’, sep=’,’): Kode ini menggunakan fungsi read_csv() dari pustaka pandas (pd) untuk membaca file CSV dari URL yang diberikan. File CSV tersebut merupakan dataset Iris yang diambil dari repositori GitHub. Parameter sep=’,’ digunakan untuk menentukan pemisah antar kolom dalam file CSV.</p></li>
+<li><p>df.head(): Kode ini digunakan untuk mencetak lima baris pertama dari DataFrame df. Fungsi head() adalah salah satu metode pandas yang berguna untuk melihat beberapa baris awal dari sebuah DataFrame.</p></li>
+</ol>
+<p>###menghitung jumlah kemunculan setiap nilai unik dalam kolom ‘species’</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>setosa        50
+versicolor    50
+virginica     50
+Name: species, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut menghitung jumlah kemunculan setiap nilai unik dalam kolom ‘species’ dari DataFrame df dan menampilkannya.</p>
+</div>
+<div class="section" id="mengembalikan-daftar-kolom-yang-ada-dalam-dataframe">
+<h2>Mengembalikan daftar kolom yang ada dalam DataFrame<a class="headerlink" href="#mengembalikan-daftar-kolom-yang-ada-dalam-dataframe" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;sepal_length&#39;, &#39;sepal_width&#39;, &#39;petal_length&#39;, &#39;petal_width&#39;,
+       &#39;species&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut mengembalikan daftar kolom yang ada dalam DataFrame df.</p>
+<p>###Memisahkan data dalam DataFrame</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>X=df.iloc[:,0:4].values mengambil nilai-nilai dari kolom 0 hingga 3 dari DataFrame df dan menyimpannya dalam variabel X.</p></li>
+<li><p>y=df.iloc[:,4].values mengambil nilai-nilai dari kolom ke-4 (kolom “species”) dari DataFrame df dan menyimpannya dalam variabel y.</p></li>
+</ol>
+</div>
+<div class="section" id="membuat-gambar-histogram-dari-empat-fitur-dalam-dataframe-x">
+<h2>Membuat gambar histogram dari empat fitur dalam DataFrame ‘X’<a class="headerlink" href="#membuat-gambar-histogram-dari-empat-fitur-dalam-dataframe-x" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">label_dict</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;setosa&#39;</span><span class="p">,</span>
+           <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span>
+           <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;virginica&#39;</span><span class="p">}</span>
+<span class="n">feature_dict</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">}</span>
+
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">&#39;seaborn-whitegrid&#39;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span><span class="s1">&#39;versicolor&#39;</span><span class="p">,</span><span class="s1">&#39;virginica&#39;</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">lab</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">,</span>
+                    <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">feature_dict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/00c1e3206514787f77b09f09e0019b325678c3445d8dec0f2311125dc08ecc5f.png" src="_images/00c1e3206514787f77b09f09e0019b325678c3445d8dec0f2311125dc08ecc5f.png" />
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>label_dict adalah kamus yang memetakan nilai numerik (1, 2, 3) ke nama spesies (“setosa”, “versicolor”, “virginica”).</p></li>
+<li><p>feature_dict adalah kamus yang memetakan indeks fitur (0, 1, 2, 3) ke nama fitur (“sepal_length”, “sepal_width”, “petal_length”, “petal_width”).</p></li>
+<li><p>with plt.style.context(‘seaborn-whitegrid’): mengatur gaya plot menjadi “seaborn-whitegrid”.</p></li>
+<li><p>plt.figure(figsize=(8,6)) membuat gambar dengan ukuran 8x6.</p></li>
+<li><p>loop for i in range(4), kode berikutnya akan membuat subplot untuk setiap fitur.</p></li>
+<li><p>plt.subplot(2,2,i+1) mengatur subplot dengan ukuran 2x2.</p></li>
+<li><p>for lab in (‘setosa’,’versicolor’,’virginica’) akan mengulangi tiga spesies dan membuat histogram untuk setiap spesies dengan menggunakan data yang sesuai.</p></li>
+<li><p>plt.hist(X[y==lab, i], label=lab, bins=10, alpha=0.3) membuat histogram dengan menggunakan nilai fitur dari spesies yang sesuai. Parameter bins=10 mengatur jumlah bin histogram menjadi 10, dan alpha=0.3 mengatur transparansi histogram.</p></li>
+<li><p>plt.xlabel(feature_dict[i]) memberi label sumbu x pada subplot saat ini dengan nama fitur yang sesuai.</p></li>
+<li><p>plt.legend(loc=’upper right’, fancybox=True, fontsize=8) menampilkan legenda dengan label spesies di sudut kanan atas plot. Parameter fancybox=True mengatur tampilan kotak legenda yang bergaya.</p></li>
+<li><p>plt.tight_layout() menyesuaikan tata letak plot agar lebih rapi.
+plt.show() menampilkan plot histogram.</p></li>
+</ol>
+</div>
+<div class="section" id="melakukan-penskalaan-standar-pada-data-menggunakan-library-scikit-learn">
+<h2>Melakukan penskalaan standar pada data menggunakan library scikit-learn<a class="headerlink" href="#melakukan-penskalaan-standar-pada-data-menggunakan-library-scikit-learn" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">X_std</span><span class="o">=</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="menghitung-dan-mencetak-matriks-kovarian-dari-data-yang-telah-distandardisasi">
+<h2>Menghitung dan mencetak matriks kovarian dari data yang telah distandardisasi.<a class="headerlink" href="#menghitung-dan-mencetak-matriks-kovarian-dari-data-yang-telah-distandardisasi" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_vec</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cov_mat</span><span class="o">=</span><span class="p">(</span><span class="n">X_std</span><span class="o">-</span><span class="n">mean_vec</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">X_std</span><span class="o">-</span><span class="n">mean_vec</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">X_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Covariance Matrix </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">cov_mat</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Covariance Matrix 
+[[ 1.00671141 -0.11010327  0.87760486  0.82344326]
+ [-0.11010327  1.00671141 -0.42333835 -0.358937  ]
+ [ 0.87760486 -0.42333835  1.00671141  0.96921855]
+ [ 0.82344326 -0.358937    0.96921855  1.00671141]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut melakukan normalisasi data menggunakan StandardScaler dan kemudian menghitung matriks kovarian dari data yang telah dinormalisasi. Hasilnya dicetak sebagai “Covariance Matrix” diikuti oleh nilai matriks kovarian.</p>
+</div>
+<div class="section" id="mencetak-matriks-kovarian-menggunakan-np-cov-pada-data-yang-telah-distandardisasi">
+<h2>Mencetak matriks kovarian menggunakan np.cov pada data yang telah distandardisasi.<a class="headerlink" href="#mencetak-matriks-kovarian-menggunakan-np-cov-pada-data-yang-telah-distandardisasi" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numpy Covariance matrix </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">np</span>.cov(X_std.T))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Numpy Covariance matrix 
+[[ 1.00671141 -0.11010327  0.87760486  0.82344326]
+ [-0.11010327  1.00671141 -0.42333835 -0.358937  ]
+ [ 0.87760486 -0.42333835  1.00671141  0.96921855]
+ [ 0.82344326 -0.358937    0.96921855  1.00671141]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut menghitung matriks kovarian dari data yang telah dinormalisasi X_std menggunakan fungsi np.cov(). Hasilnya dicetak sebagai “Numpy Covariance matrix” diikuti oleh nilai matriks kovarian.</p>
+</div>
+<div class="section" id="menghitung-eigenvector-dan-eigenvalue-dari-matriks-kovarian-dan-mencetak-hasilnya">
+<h2>Menghitung eigenvector dan eigenvalue dari matriks kovarian, dan mencetak hasilnya.<a class="headerlink" href="#menghitung-eigenvector-dan-eigenvalue-dari-matriks-kovarian-dan-mencetak-hasilnya" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov_mat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X_std</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">eig_vals</span><span class="p">,</span> <span class="n">eig_vecs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cov_mat</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvectors </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">eig_vecs</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvelues </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">eig_vals</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eigenvectors 
+[[ 0.52237162 -0.37231836 -0.72101681  0.26199559]
+ [-0.26335492 -0.92555649  0.24203288 -0.12413481]
+ [ 0.58125401 -0.02109478  0.14089226 -0.80115427]
+ [ 0.56561105 -0.06541577  0.6338014   0.52354627]]
+Eigenvelues 
+[2.93035378 0.92740362 0.14834223 0.02074601]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut menghitung eigenvektor dan eigennilai dari matriks kovarian menggunakan np.linalg.eig(). Hasilnya dicetak sebagai “Eigenvectors” diikuti oleh nilai eigenvektor, dan “Eigenvalues” diikuti oleh nilai eigennilai.</p>
+</div>
+<div class="section" id="matriks-korelasi">
+<h2>Matriks Korelasi<a class="headerlink" href="#matriks-korelasi" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="menghitung-matriks-korelasi-eigenvector-dan-eigenvalue-kemudian-mencetak-hasilnya">
+<h2>Menghitung matriks korelasi, eigenvector, dan eigenvalue, kemudian mencetak hasilnya.<a class="headerlink" href="#menghitung-matriks-korelasi-eigenvector-dan-eigenvalue-kemudian-mencetak-hasilnya" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_mat1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">X_std</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">eig_vals</span><span class="p">,</span> <span class="n">eig_vecs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">corr_mat1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvectors </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">eig_vecs</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvelues </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">eig_vals</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eigenvectors 
+[[ 0.52237162 -0.37231836 -0.72101681  0.26199559]
+ [-0.26335492 -0.92555649  0.24203288 -0.12413481]
+ [ 0.58125401 -0.02109478  0.14089226 -0.80115427]
+ [ 0.56561105 -0.06541577  0.6338014   0.52354627]]
+Eigenvelues 
+[2.91081808 0.92122093 0.14735328 0.02060771]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut menghitung matriks korelasi corr_mat1 dari data yang telah dinormalisasi X_std menggunakan fungsi np.corrcoef(). Selanjutnya, kode menghitung eigenvektor dan eigennilai dari matriks korelasi tersebut menggunakan np.linalg.eig(). Hasilnya dicetak sebagai “Eigenvectors” diikuti oleh nilai eigenvektor, dan “Eigenvalues” diikuti oleh nilai eigennilai.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cor_mat2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">eig_vals</span><span class="p">,</span> <span class="n">eig_vecs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cor_mat2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvectors </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">eig_vecs</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvelues </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="k">eig_vals</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eigenvectors 
+[[ 0.52237162 -0.37231836 -0.72101681  0.26199559]
+ [-0.26335492 -0.92555649  0.24203288 -0.12413481]
+ [ 0.58125401 -0.02109478  0.14089226 -0.80115427]
+ [ 0.56561105 -0.06541577  0.6338014   0.52354627]]
+Eigenvelues 
+[2.91081808 0.92122093 0.14735328 0.02060771]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="menggunakan-singular-value-decomposition-svd-pada-transpose-matriks-x-std-dan-hasilnya-disimpan-dalam-variabel-u">
+<h2>Menggunakan Singular Value Decomposition (SVD) pada transpose matriks X_std dan hasilnya disimpan dalam variabel u.<a class="headerlink" href="#menggunakan-singular-value-decomposition-svd-pada-transpose-matriks-x-std-dan-hasilnya-disimpan-dalam-variabel-u" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_std</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">u</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.52237162, -0.37231836,  0.72101681,  0.26199559],
+       [ 0.26335492, -0.92555649, -0.24203288, -0.12413481],
+       [-0.58125401, -0.02109478, -0.14089226, -0.80115427],
+       [-0.56561105, -0.06541577, -0.6338014 ,  0.52354627]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut menghitung SVD (Singular Value Decomposition) dari matriks data yang telah dinormalisasi X_std.T menggunakan np.linalg.svd(). Hasilnya, nilai-nilai dari SVD disimpan dalam variabel u, s, dan v. Kemudian, kode mencetak nilai dari u, yang merupakan matriks utama dari SVD.</p>
+</div>
+<div class="section" id="memverifikasi-norma-eigenvector-dan-mencetak-pesan-jika-valid">
+<h2>Memverifikasi norma eigenvector dan mencetak pesan jika valid.<a class="headerlink" href="#memverifikasi-norma-eigenvector-dan-mencetak-pesan-jika-valid" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">eig_vecs</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_almost_equal</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ev</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Everithing is ok&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Everithing is ok
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut melakukan iterasi melalui setiap vektor eigen ev yang telah di-transpose (eig_vecs.T). Pada setiap iterasi, kode menggunakan np.linalg.norm() untuk menghitung norma dari vektor eigen tersebut, dan kemudian memastikan bahwa norma tersebut mendekati nilai 1 dengan menggunakan np.testing.assert_array_almost_equal(). Jika semua vektor eigen memiliki norma mendekati 1, maka pesan “Everything is ok” akan dicetak. Kode ini digunakan untuk memverifikasi bahwa vektor eigen yang dihitung benar-benar merupakan vektor unit.</p>
+</div>
+<div class="section" id="membuat-daftar-pasangan-nilai-eigen-vektor-eigen">
+<h2>Membuat daftar pasangan (nilai eigen, vektor eigen)<a class="headerlink" href="#membuat-daftar-pasangan-nilai-eigen-vektor-eigen" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a list of (eigenvalue, eigenvector) tuples</span>
+<span class="n">eig_pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">eig_vecs</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">))]</span>
+
+<span class="c1"># Sort the (eigenvalue, eigenvector) tuples from high to low</span>
+<span class="n">eig_pairs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Visually confirm that the list is correctly sorted by decreasing eigenvalues</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Eigenvalues in descending order:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">eig_pairs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eigenvalues in descending order:
+2.9108180837520528
+0.9212209307072249
+0.1473532783050959
+0.020607707235624884
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut mengurutkan eigennilai dalam urutan menurun dan mencetaknya. Eigennilai adalah angka yang menggambarkan variasi atau pentingnya setiap vektor eigen dalam matriks data.</p>
+</div>
+<div class="section" id="menghitung-persentase-variasi-dan-kumulatif-menggunakan-eigenvalues-terurut">
+<h2>Menghitung persentase variasi dan kumulatif menggunakan eigenvalues terurut.<a class="headerlink" href="#menghitung-persentase-variasi-dan-kumulatif-menggunakan-eigenvalues-terurut" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tot</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">)</span>
+<span class="n">var_exp</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span> <span class="o">/</span> <span class="n">tot</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="n">cum_var_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">var_exp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode tersebut menghitung persentase variasi yang dijelaskan oleh setiap eigennilai, serta menghitung akumulasi persentase variasi dari eigennilai tersebut.</p>
+</div>
+<div class="section" id="membuat-gambar-persentase-variasi-dan-variasi-kumulatif-yang-dijelaskan">
+<h2>Membuat gambar persentase variasi dan variasi kumulatif yang dijelaskan.<a class="headerlink" href="#membuat-gambar-persentase-variasi-dan-variasi-kumulatif-yang-dijelaskan" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">&#39;seaborn-whitegrid&#39;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">var_exp</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;individual explained variance&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">cum_var_exp</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cumulative explained variance&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Explained variance ratio&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Principal components&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5a22adbcf107f11561704526eef1f6315049b8af580666e8b100fb54e2835c85.png" src="_images/5a22adbcf107f11561704526eef1f6315049b8af580666e8b100fb54e2835c85.png" />
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>with plt.style.context(‘seaborn-whitegrid’):: Kode ini mengatur gaya plot menggunakan seaborn-whitegrid untuk tampilan yang lebih rapi.</p></li>
+<li><p>plt.figure(figsize=(6, 4)): Kode ini membuat objek gambar dengan ukuran 6x4 menggunakan plt.figure().</p></li>
+<li><p>plt.bar(range(4), var_exp, alpha=0.5, align=’center’, label=’individual explained variance’): Kode ini membuat grafik batang dengan tinggi yang sesuai dengan persentase variasi yang dijelaskan oleh setiap komponen utama. Garis batas pada setiap batang diatur di tengah (align=’center’). Garis batas ditampilkan dengan transparansi alpha=0.5. Label untuk grafik batang ini adalah ‘individual explained variance’.</p></li>
+<li><p>plt.step(range(4), cum_var_exp, where=’mid’, label=’cumulative explained variance’): Kode ini membuat grafik langkah yang menunjukkan akumulasi variasi yang dijelaskan oleh komponen utama. Grafik langkah menunjukkan kenaikan nilai secara bertahap. Label untuk grafik langkah ini adalah ‘cumulative explained variance’.</p></li>
+<li><p>plt.ylabel(‘Explained variance ratio’): Kode ini menetapkan label sumbu y sebagai ‘Explained variance ratio’, yang menggambarkan persentase variasi yang dijelaskan.</p></li>
+<li><p>plt.xlabel(‘Principal components’): Kode ini menetapkan label sumbu x sebagai ‘Principal components’, yang menggambarkan komponen utama.</p></li>
+<li><p>plt.legend(loc=’best’): Kode ini menampilkan legenda dengan posisi terbaik (loc=’best’) yang mencakup label-label yang ditetapkan sebelumnya.</p></li>
+<li><p>plt.tight_layout(): Kode ini mengatur tata letak plot secara otomatis untuk memastikan elemen-elemen plot terlihat dengan baik.</p></li>
+</ol>
+</div>
+<div class="section" id="menggabungkan-dua-vektor-eigen-terpilih-menjadi-sebuah-matriks">
+<h2>Menggabungkan dua vektor eigen terpilih menjadi sebuah matriks<a class="headerlink" href="#menggabungkan-dua-vektor-eigen-terpilih-menjadi-sebuah-matriks" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matrix_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">eig_pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                      <span class="n">eig_pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Matrix W:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">matrix_w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matrix W:
+ [[ 0.52237162 -0.37231836]
+ [-0.26335492 -0.92555649]
+ [ 0.58125401 -0.02109478]
+ [ 0.56561105 -0.06541577]]
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>matrix_w = np.hstack((eig_pairs[0][1].reshape(4,1), eig_pairs[1][1].reshape(4,1)))<code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">Kode</span> <span class="pre">ini</span> <span class="pre">menggabungkan</span> <span class="pre">dua</span> <span class="pre">vektor</span> <span class="pre">eigen</span> <span class="pre">teratas</span> <span class="pre">dari</span> </code>eig_pairs<code class="docutils literal notranslate"><span class="pre">ke</span> <span class="pre">dalam</span> <span class="pre">matriks</span></code>matrix_w<code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">Fungsi</span> </code>np.hstack()<code class="docutils literal notranslate"><span class="pre">digunakan</span> <span class="pre">untuk</span> <span class="pre">menggabungkan</span> <span class="pre">vektor</span> <span class="pre">secara</span> <span class="pre">horizontal.</span></code>eig_pairs[0][1]<code class="docutils literal notranslate"><span class="pre">adalah</span> <span class="pre">vektor</span> <span class="pre">eigen</span> <span class="pre">teratas</span> <span class="pre">pertama,</span> <span class="pre">sedangkan</span></code>eig_pairs[1][1]<code class="docutils literal notranslate"><span class="pre">adalah</span> <span class="pre">vektor</span> <span class="pre">eigen</span> <span class="pre">teratas</span> <span class="pre">kedua.</span> <span class="pre">Fungsi</span></code>reshape(4,1)<code class="docutils literal notranslate"><span class="pre">digunakan</span> <span class="pre">untuk</span> <span class="pre">mengubah</span> <span class="pre">dimensi</span> <span class="pre">vektor</span> <span class="pre">menjadi</span></code>(4,1)<code class="docutils literal notranslate"><span class="pre">sehingga</span> <span class="pre">dapat</span> <span class="pre">digabungkan</span> <span class="pre">dalam</span> <span class="pre">matriks.</span> <span class="pre">Hasilnya</span> <span class="pre">disimpan</span> <span class="pre">dalam</span> <span class="pre">variabel</span></code>matrix_w`.</p></li>
+<li><p>print(‘Matrix W:\n’, matrix_w)<code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">Kode</span> <span class="pre">ini</span> <span class="pre">mencetak</span> <span class="pre">matriks</span> </code>matrix_w` dengan pesan “Matrix W:”.</p></li>
+</ol>
+</div>
+<div class="section" id="mengalikan-matriks-x-std-dengan-matriks-w-dan-menyimpan-hasilnya-dalam-matriks-y">
+<h2>Mengalikan matriks X_std dengan matriks W dan menyimpan hasilnya dalam matriks Y.<a class="headerlink" href="#mengalikan-matriks-x-std-dengan-matriks-w-dan-menyimpan-hasilnya-dalam-matriks-y" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">X_std</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">matrix_w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Y = X_std.dot(matrix_w): Kode ini melakukan perkalian antara matriks data yang telah dinormalisasi X_std dengan matriks transformasi matrix_w menggunakan operator dot(). Hasilnya disimpan dalam variabel Y, yang merupakan matriks hasil transformasi.</p>
+</div>
+<div class="section" id="membuat-scatter-plot-dua-dimensi-dengan-warna-berbeda-untuk-setiap-label">
+<h2>Membuat scatter plot dua dimensi dengan warna berbeda untuk setiap label.<a class="headerlink" href="#membuat-scatter-plot-dua-dimensi-dengan-warna-berbeda-untuk-setiap-label" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">&#39;seaborn-whitegrid&#39;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">lab</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;virginica&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">lab</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="n">Y</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">lab</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">,</span>
+                    <span class="n">c</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Principal Component 1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Principal Component 2&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cb2a57093ff5eeb255a123df3971973b18b11422773920eda895f3209661d18d.png" src="_images/cb2a57093ff5eeb255a123df3971973b18b11422773920eda895f3209661d18d.png" />
+</div>
+</div>
+<p>Kode tersebut membuat scatter plot dari hasil transformasi Y dengan dua komponen utama. Setiap kelas ditampilkan dengan warna yang berbeda dalam plot tersebut.</p>
+</div>
+<div class="section" id="mengubah-data-x-std-menjadi-matriks-y-sklearn-berdimensi-dua">
+<h2>Mengubah data ‘X_std’ menjadi matriks ‘Y_sklearn’ berdimensi dua.<a class="headerlink" href="#mengubah-data-x-std-menjadi-matriks-y-sklearn-berdimensi-dua" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span> <span class="k">as</span> <span class="n">sklearnPCA</span>
+<span class="n">sklearn_pca</span> <span class="o">=</span> <span class="n">sklearnPCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Y_sklearn</span> <span class="o">=</span> <span class="n">sklearn_pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Membuat scatter plot dua dimensi dengan warna berbeda untuk setiap label<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">&#39;seaborn-whitegrid&#39;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">lab</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;virginica&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Y_sklearn</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">lab</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="n">Y_sklearn</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">lab</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">,</span>
+                    <span class="n">c</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Principal Component 1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Principal Component 2&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/264b1233746625f8ac36c2227d4c58aed6af883582673ca8e391428f69555a5b.png" src="_images/264b1233746625f8ac36c2227d4c58aed6af883582673ca8e391428f69555a5b.png" />
+</div>
+</div>
+<p>Kode tersebut menggunakan metode PCA dari scikit-learn untuk melakukan reduksi dimensi dan membuat scatter plot dari hasil transformasi. Hasil transformasi disimpan dalam variabel Y_sklearn, dan plot tersebut menampilkan titik-titik dengan warna yang berbeda untuk setiap kelas.</p>
+</div>
+<div class="section" id="dataframe-data-yang-berisi-kolom-x-dan-y-yang-berisi-nilai-dari-matriks-y-sklearn">
+<h2>DataFrame ‘data’ yang berisi kolom ‘X’ dan ‘Y’ yang berisi nilai dari matriks Y_sklearn.<a class="headerlink" href="#dataframe-data-yang-berisi-kolom-x-dan-y-yang-berisi-nilai-dari-matriks-y-sklearn" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Y_sklearn</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-621fb3e1-ae6f-4578-97e6-b43d97ba21a5">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-2.264542</td>
+      <td>0.505704</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2.086426</td>
+      <td>-0.655405</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2.367950</td>
+      <td>-0.318477</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-2.304197</td>
+      <td>-0.575368</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-2.388777</td>
+      <td>0.674767</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>1.870522</td>
+      <td>0.382822</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>1.558492</td>
+      <td>-0.905314</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>1.520845</td>
+      <td>0.266795</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>1.376391</td>
+      <td>1.016362</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>0.959299</td>
+      <td>-0.022284</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 2 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-621fb3e1-ae6f-4578-97e6-b43d97ba21a5')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-621fb3e1-ae6f-4578-97e6-b43d97ba21a5 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-621fb3e1-ae6f-4578-97e6-b43d97ba21a5');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>Kode tersebut membuat sebuah DataFrame dari hasil transformasi PCA (Y_sklearn). DataFrame tersebut memiliki dua kolom dengan nama ‘X’ dan ‘Y’, yang mewakili komponen utama pertama dan kedua.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-b4d38b8f-5092-42e1-8ced-8f929429e73c">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X</th>
+      <th>Y</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-2.264542</td>
+      <td>0.505704</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2.086426</td>
+      <td>-0.655405</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2.367950</td>
+      <td>-0.318477</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-2.304197</td>
+      <td>-0.575368</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-2.388777</td>
+      <td>0.674767</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>1.870522</td>
+      <td>0.382822</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>1.558492</td>
+      <td>-0.905314</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>1.520845</td>
+      <td>0.266795</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>1.376391</td>
+      <td>1.016362</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>0.959299</td>
+      <td>-0.022284</td>
+      <td>virginica</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 3 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-b4d38b8f-5092-42e1-8ced-8f929429e73c')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-b4d38b8f-5092-42e1-8ced-8f929429e73c button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-b4d38b8f-5092-42e1-8ced-8f929429e73c');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>Kode tersebut menambahkan kolom ‘species’ ke DataFrame data dan mengisinya dengan nilai dari kolom ‘species’ pada DataFrame df.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Indah_Kharisma_UTS_Penambangan_Data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">UTS PENDATA</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengembalikan-daftar-kolom-yang-ada-dalam-dataframe">Mengembalikan daftar kolom yang ada dalam DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-gambar-histogram-dari-empat-fitur-dalam-dataframe-x">Membuat gambar histogram dari empat fitur dalam DataFrame ‘X’</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-penskalaan-standar-pada-data-menggunakan-library-scikit-learn">Melakukan penskalaan standar pada data menggunakan library scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-dan-mencetak-matriks-kovarian-dari-data-yang-telah-distandardisasi">Menghitung dan mencetak matriks kovarian dari data yang telah distandardisasi.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mencetak-matriks-kovarian-menggunakan-np-cov-pada-data-yang-telah-distandardisasi">Mencetak matriks kovarian menggunakan np.cov pada data yang telah distandardisasi.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-eigenvector-dan-eigenvalue-dari-matriks-kovarian-dan-mencetak-hasilnya">Menghitung eigenvector dan eigenvalue dari matriks kovarian, dan mencetak hasilnya.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi">Matriks Korelasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-matriks-korelasi-eigenvector-dan-eigenvalue-kemudian-mencetak-hasilnya">Menghitung matriks korelasi, eigenvector, dan eigenvalue, kemudian mencetak hasilnya.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggunakan-singular-value-decomposition-svd-pada-transpose-matriks-x-std-dan-hasilnya-disimpan-dalam-variabel-u">Menggunakan Singular Value Decomposition (SVD) pada transpose matriks X_std dan hasilnya disimpan dalam variabel u.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memverifikasi-norma-eigenvector-dan-mencetak-pesan-jika-valid">Memverifikasi norma eigenvector dan mencetak pesan jika valid.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-daftar-pasangan-nilai-eigen-vektor-eigen">Membuat daftar pasangan (nilai eigen, vektor eigen)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-persentase-variasi-dan-kumulatif-menggunakan-eigenvalues-terurut">Menghitung persentase variasi dan kumulatif menggunakan eigenvalues terurut.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-gambar-persentase-variasi-dan-variasi-kumulatif-yang-dijelaskan">Membuat gambar persentase variasi dan variasi kumulatif yang dijelaskan.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-dua-vektor-eigen-terpilih-menjadi-sebuah-matriks">Menggabungkan dua vektor eigen terpilih menjadi sebuah matriks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengalikan-matriks-x-std-dengan-matriks-w-dan-menyimpan-hasilnya-dalam-matriks-y">Mengalikan matriks X_std dengan matriks W dan menyimpan hasilnya dalam matriks Y.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-scatter-plot-dua-dimensi-dengan-warna-berbeda-untuk-setiap-label">Membuat scatter plot dua dimensi dengan warna berbeda untuk setiap label.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengubah-data-x-std-menjadi-matriks-y-sklearn-berdimensi-dua">Mengubah data ‘X_std’ menjadi matriks ‘Y_sklearn’ berdimensi dua.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Membuat scatter plot dua dimensi dengan warna berbeda untuk setiap label</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-data-yang-berisi-kolom-x-dan-y-yang-berisi-nilai-dari-matriks-y-sklearn">DataFrame ‘data’ yang berisi kolom ‘X’ dan ‘Y’ yang berisi nilai dari matriks Y_sklearn.</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
