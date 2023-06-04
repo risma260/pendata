@@ -63,6 +63,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'Indah_Kharisma_UTS_Penambangan_Data';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Penerapan beberapa metode Machine Learning pada dataset Iris" href="Metode_ML.html" />
     <link rel="prev" title="Naive Bayes" href="Naive_Bayes.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -139,8 +140,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/mining.jpg" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/mining.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -150,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Profil
+                    Welcome to your Jupyter Book
                 </a>
             </li>
         </ul>
@@ -158,7 +159,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Load_Data_ke_Power_BI.html">Load Data ke Power BI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Naive_Bayes.html">Naive Bayes</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">UTS PENDATA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PCA_Iris.html">PCA Iris</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Metode_ML.html">Penerapan beberapa metode Machine Learning pada dataset Iris</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Metode_PCA.html">Implementasi PCA pada beberapa metode</a></li>
+
+
+
+
 
 </ul>
 
@@ -419,7 +431,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-c9b39d89-2b87-46d1-bd61-aa3ed19547f5">
+  <div id="df-5761c265-a024-4946-8dd9-286e81b3f712">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -520,7 +532,7 @@ document.write(`
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-c9b39d89-2b87-46d1-bd61-aa3ed19547f5')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-5761c265-a024-4946-8dd9-286e81b3f712')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -571,12 +583,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-c9b39d89-2b87-46d1-bd61-aa3ed19547f5 button.colab-df-convert');
+          document.querySelector('#df-5761c265-a024-4946-8dd9-286e81b3f712 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-c9b39d89-2b87-46d1-bd61-aa3ed19547f5');
+          const element = document.querySelector('#df-5761c265-a024-4946-8dd9-286e81b3f712');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -773,7 +785,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-d3069262-c991-4e9d-b035-9fe7735879f6">
+  <div id="df-ec04c64f-35d4-45ac-b71d-3ab53646d6eb">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -874,7 +886,7 @@ document.write(`
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-d3069262-c991-4e9d-b035-9fe7735879f6')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-ec04c64f-35d4-45ac-b71d-3ab53646d6eb')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -925,12 +937,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-d3069262-c991-4e9d-b035-9fe7735879f6 button.colab-df-convert');
+          document.querySelector('#df-ec04c64f-35d4-45ac-b71d-3ab53646d6eb button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-d3069262-c991-4e9d-b035-9fe7735879f6');
+          const element = document.querySelector('#df-ec04c64f-35d4-45ac-b71d-3ab53646d6eb');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1131,6 +1143,15 @@ document.write(`
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Naive Bayes</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="Metode_ML.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Penerapan beberapa metode Machine Learning pada dataset Iris</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
