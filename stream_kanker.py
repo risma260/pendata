@@ -29,7 +29,7 @@ if (selected2 == 'Preprocessing data') :
     st.title('Preprocessing Data')
 
     st.write("Saya menggunakan Preprocessing Data MinMax Scaler ")
-    data = pd.read_csv(r'c:\Users\Risma\Streamlit\preprocessed_kanker.csv')
+    data = pd.read_csv('preprocessed_kanker.csv')
     st.write(data)
 
 #halaman modelling
