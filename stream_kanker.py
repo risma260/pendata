@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit as st
 import pandas as pd
 import pickle
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from streamlit_option_menu import option_menu
 
 #navigasi sidebar
