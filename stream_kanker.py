@@ -15,29 +15,22 @@ selected2 = option_menu(None, ["Data", "Preprocessing data", "Modelling", 'Imple
 
 #halaman Data
 if (selected2 == 'Data') :
-    st.title('deskripsi data')
-
-    st.write("Ini adalah contoh data yang tersedia dalam aplikasi Streamlit")
-    st.write("Data ini berisi 30 kolom untuk memprediksi Kanker ganas dan kanker jinak")
-    st.write("Data ini diambil dari kaggle")
-    st.write("Data ini merupakan type data Numerik")
+    st.subheader('Struktur Data')
+    st.write("Halaman ini menampilkan dataset kanker payudara yang diambil dari Kaggle. Dataset terdiri dari 30 fitur numerik yang menggambarkan karakteristik sel, seperti ukuran radius, tekstur, perimeter, area, dan tingkat kekompakan. Data ini menjadi dasar dalam membangun model klasifikasi untuk membedakan kanker ganas (malignant) dan jinak (benign).")
     data = pd.read_csv('https://raw.githubusercontent.com/risma260/dataset_cancer/main/DATA_KANKER.csv', sep=';')
     st.write(data)
 
-
-
 #halaman preprocessing data 
 if (selected2 == 'Preprocessing data') :
-    st.title('Preprocessing Data')
-
-    st.write("Saya menggunakan Preprocessing Data MinMax Scaler ")
+    st.subheader('Preprocessing Data')
+    st.write("Pada halaman ini, dataset ditampilkan dalam bentuk yang sudah diproses menggunakan Min-Max Scaler. Teknik normalisasi ini digunakan untuk menyamakan skala antar fitur sehingga model machine learning dapat melakukan pelatihan secara lebih optimal. Hasil preprocessing menunjukkan nilai fitur sudah berada dalam rentang 0–1.")
     data = pd.read_csv('preprocessed_kanker.csv')
     st.write(data)
 
 #halaman modelling
 if (selected2 == 'Modelling'):
-    st.title('Modelling')
-
+    st.subheader('Modelling')
+    st.write("Halaman ini menampilkan proses dan hasil pemodelan menggunakan beberapa algoritma machine learning. Setiap model menghasilkan skor akurasi yang ditampilkan pada halaman ini, sehingga pengguna dapat melihat performa masing-masing model dalam memprediksi kanker ganas atau jinak. Model yang memiliki akurasi terbaik kemudian digunakan untuk implementasi.")
     pilih = st.radio('Pilih', ('Naive Bayes', 'Decision Tree', 'KNN', 'ANN'))
 
     if (pilih == 'Naive Bayes'):
@@ -51,8 +44,8 @@ if (selected2 == 'Modelling'):
          
 #halaman Implementasi
 if (selected2 == 'Implementasi'):
-    st.title('Implementasi')
-
+    st.subheader('Implementasi')
+    st.write("Halaman implementasi menyediakan form input bagi pengguna untuk memasukkan nilai fitur-fitur sel (seperti radius, tekstur, dan area). Setelah input diberikan, aplikasi akan menampilkan hasil prediksi apakah sampel tersebut termasuk kanker ganas atau kanker jinak, berdasarkan model terbaik yang sudah dilatih.")
     # membaca model
     kanker_model = pickle.load(open('Kanker_KNN.pkl', 'rb'))
 
@@ -139,6 +132,7 @@ if (selected2 == 'Implementasi'):
         
         st.success(kanker_diagnosis)
         
+
 
 
 
