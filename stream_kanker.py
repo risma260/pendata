@@ -5,6 +5,8 @@ from sklearn.preprocessing import MinMaxScaler
 from streamlit_option_menu import option_menu
 
 #navigasi sidebar
+# judul web
+st.title('Aplikasi Prediksi Kanker Payudara Ganas dan Jinak')
 # horizontal menu
 selected2 = option_menu(None, ["Data", "Preprocessing data", "Modelling", 'Implementasi'], 
     icons=['house', 'cloud-upload', "list-task", 'gear'], 
@@ -53,9 +55,6 @@ if (selected2 == 'Implementasi'):
 
     # membaca model
     kanker_model = pickle.load(open('Kanker_KNN.pkl', 'rb'))
-
-    # judul web
-    st.title('Aplikasi Prediksi Kanker Ganas dan Jinak')
 
     #membagi kolom
     col1, col2, col3 = st.columns(3)
@@ -140,3 +139,4 @@ if (selected2 == 'Implementasi'):
         
         st.success(kanker_diagnosis)
         
+
